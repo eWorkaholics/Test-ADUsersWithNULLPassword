@@ -6,7 +6,7 @@ $band32Users = Get-ADUser -Filter "useraccountcontrol -band 32" -Properties User
 
 foreach ($user in $band32Users) {
     if ($user.enabled -and -not ($null -ne $user.AccountExpirationDate -and $user.AccountExpirationDate -lt $today) -and $DS.ValidateCredentials($user.samAccountName, '')) {
-        $badUser = [pscusomobject] @{
+        $badUser = [pscustomobject] @{
             samAccountName = $user.samAccountName
             LastLogonDate = $user.LastLogonDate
             userAccountControl = $user.UserAccountControl
